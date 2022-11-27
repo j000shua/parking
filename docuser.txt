@@ -1,0 +1,14 @@
+[doc utilisateur donc à afficher dans la page d'accueil parkingM2L/demanderPlace]
+
+Bienvenu sur le portail d'attributions de places de parking de la M2L.
+
+Pour reserver une place, cliquez sur le bouton au milieu de la place,
+sera alors affiché le numero et l'emplacement de votre place ainsi
+que le temps restant avant que la place ne vous soit plus attribuée.
+
+Lorsque que vous aurez fini d'occuper la place, vous pourrez appuiyer
+sur le bouton "FERMER LA PLACE" pour la liberer.
+
+Si le parking est vide, vous serez en liste d'attente, vous aurez acces à votre rang.
+
+En suivant le bouton en bas à droite, vous pourrez consulter votre profil et modifier votre mot de passe.
