@@ -18,9 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
-    Gate::authorize('admin-check');
-    return view('admin');
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
+    Route::get('/',function () {
+        return view('admin');
+    });
+    Route::get('user','Controller@post');
 });
 
 Route::get('/dashboard', function () {
