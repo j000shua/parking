@@ -18,11 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
     Route::get('/',function () {
         return view('admin');
     });
-    Route::get('user','Controller@post');
 });
 
 Route::get('/dashboard', function () {
