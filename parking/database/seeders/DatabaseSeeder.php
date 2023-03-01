@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::factory(2)->create(); //crée 2 users aléatoirement
+        
+        \App\Models\Reservation::factory(3)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
