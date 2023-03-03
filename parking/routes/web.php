@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,28 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
     Route::get('/',function () {
-        return view('admin');
-    });
+        return view('admin.index');
+    })->name('admin');
+
+    Route::get('users',function () {
+        return view('admin.index');
+    })->name('admin.users');
+
+    Route::resource('places', PlaceController::class);
+
+    
+
+    Route::get('list',function () {
+        return view('admin.index');
+    })->name('admin.list');
 });
+
+Route::group(['prefix' => 'app'], function(){
+    Route::get('/', [ReservationController::class, 'index'])->name('app');
+
+    Route::post('/demanderPlace', [ReservationController::class, 'create'])->name('app.demanderPlace');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
