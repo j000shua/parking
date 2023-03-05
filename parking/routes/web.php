@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
     Route::resource('places', PlaceController::class);
 
     Route::resource('users', UserController::class);
+    Route::patch('users/{user}/valid', [UserController::class, 'valid'])->name('users.valid');
 
     Route::get('list',function () {
         return view('admin.index');

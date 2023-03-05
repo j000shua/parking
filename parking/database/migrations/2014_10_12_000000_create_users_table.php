@@ -22,6 +22,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->boolean('is_admin')->default(0);
+            $table->boolean('is_valid')->default(0);
         });
     }
 

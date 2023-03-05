@@ -19,9 +19,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->except(Auth::id());
+        $usersToValid = User::where('is_valid',0)->get()->except(Auth::id());
 
-        return view('admin.users.index', compact('users'));
+        $users = User::where('is_valid',1)->get()->except(Auth::id());
+
+        return view('admin.users.index', compact('users','usersToValid'));
     }
 
     /**
@@ -53,6 +55,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'is_admin' => $request->has('is_admin') ? 1 : 0,
+            'is_valid' => 1,
         ]);
 
         return redirect()->route('users.index');
@@ -66,7 +69,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        echo("show");
     }
 
     /**
@@ -116,6 +119,15 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+        return redirect()->route('users.index');
+    }
+
+    public function valid($id)
+    {
+        $user = User::find($id);
+        $user->update([
+            'is_valid' => 1,
+        ]);
         return redirect()->route('users.index');
     }
 }
