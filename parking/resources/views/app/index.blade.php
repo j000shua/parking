@@ -40,7 +40,6 @@
             </form>
         @endif
     @else
-        <p>Veuillez attendre qu'un administrateur valide votre inscription.</p>
+    <p>Veuillez attendre qu'un administrateur valide votre inscription.</p>
     @endif
 </x-app-layout>
-

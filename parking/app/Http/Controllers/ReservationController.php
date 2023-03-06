@@ -58,6 +58,7 @@ class ReservationController extends Controller
                 'place_id' => $place->id,
             ]);
 
+
             $user->update(['rang'=>0]);
         }
 
