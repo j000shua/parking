@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Place;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 
@@ -15,7 +17,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return view('app.index');
+        return view('app.index',);
     }
 
     /**
@@ -25,7 +27,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        return view('app.demanderPlace');
+        
     }
 
     /**
@@ -36,7 +38,27 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        //
+
+        $placesLibres = Place::where('is_free',1)->get();
+
+        if($placesLibres->isEmpty()){
+            //user->rang = count(users->where(rang>0))+1
+        }
+        else{
+            $place = $placesLibres->random();
+
+            $place->update(['is_free' => 0]);
+
+            Reservation::create([
+                'user_id' => Auth::user()->id,
+                'place_id' => $place->id,
+            ]);
+
+            Auth::user()->update(['rang'=>0]);
+        }
+
+
+        return redirect()->route('app.index');
     }
 
     /**
@@ -81,6 +103,7 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        //
+        //rang=-1
     }
+
 }

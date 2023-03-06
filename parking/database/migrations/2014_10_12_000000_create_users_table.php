@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamps();
             $table->boolean('is_admin')->default(0);
             $table->boolean('is_valid')->default(0);
+            $table->int('rang')->default(-1);
         });
     }
 
