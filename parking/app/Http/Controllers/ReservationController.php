@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use App\Models\Place;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
@@ -38,27 +39,29 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-
+        $user = $request->user();
         $placesLibres = Place::where('is_free',1)->get();
-
-        if($placesLibres->isEmpty()){
+        
+        if(count($placesLibres)===0){
             //user->rang = count(users->where(rang>0))+1
+            $user->update([
+                'rang'=> count(User::where('rang','>',0)->get())+1,
+            ]);
         }
         else{
             $place = $placesLibres->random();
 
             $place->update(['is_free' => 0]);
 
-            Reservation::create([
+            $res = Reservation::create([
                 'user_id' => Auth::user()->id,
                 'place_id' => $place->id,
             ]);
 
-            Auth::user()->update(['rang'=>0]);
+            $user->update(['rang'=>0]);
         }
 
-
-        return redirect()->route('app.index');
+        return redirect()->route('app.index', compact('res'));
     }
 
     /**
@@ -104,6 +107,13 @@ class ReservationController extends Controller
     public function destroy(Reservation $reservation)
     {
         //rang=-1
+        $user = User::find($reservation->user_id);
+        $user->update([ 'rang' => -1 ]);
+
+        $place = Place::find($reservation->place_id);
+        $place->update([ 'is_free' => 1 ]);
+
+        return redirect()->route('app.index');
     }
 
 }
