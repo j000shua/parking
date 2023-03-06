@@ -6,7 +6,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('app')" :active="request()->routeIs('app')">
+                    <x-nav-link :href="route('app.index')" :active="request()->routeIs('app.*')">
                         {{ __('Parking') }}
                     </x-nav-link>
                 </div>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('number');
             $table->timestamps();
+            $table->boolean('is_free')->default(1);
         });
     }
 
