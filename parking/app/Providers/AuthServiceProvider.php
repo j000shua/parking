@@ -30,5 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-check', function (User $user) {
             return $user->is_admin;
         });
+
+        Gate::define('valid-check', function (User $user) {
+            return $user->is_valid;
+        });
     }
 }
