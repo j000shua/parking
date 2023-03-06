@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
 Route::group(['prefix' => 'app'], function(){
     Route::get('/', [ReservationController::class, 'index'])->name('app');
 
-    Route::post('/demanderPlace', [ReservationController::class, 'create'])->name('app.demanderPlace');
+    Route::get('/demanderPlace', [ReservationController::class, 'create'])->name('app.demanderPlace');
 });
 
 Route::middleware('auth')->group(function () {

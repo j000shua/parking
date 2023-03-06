@@ -11,10 +11,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <a href="app/demanderPlace">
                         {{ __("Demander une place.") }}
-                    </a>  
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
-
