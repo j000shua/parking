@@ -27,7 +27,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -54,7 +54,7 @@ class ReservationController extends Controller
                 'place_id' => $place->id,
             ]);
 
-            Auth::user()->update(['rang'=>0]);
+            Auth::user()->update(['rang'=> 0]);
         }
 
 
