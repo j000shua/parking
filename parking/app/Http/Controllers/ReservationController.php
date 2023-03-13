@@ -18,7 +18,17 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return view('app.index',);
+        $user = Auth::user();
+
+        $res = User::find($user->id)->reservations()
+                    ->where('ended_at', null)
+                    ->first();
+
+        if ($user->rang > 0)
+            return view('app.list');
+        
+        if (1)
+            return view('app.index',);
     }
 
     /**
@@ -40,29 +50,11 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         $user = $request->user();
-        $placesLibres = Place::where('is_free',1)->get();
-        
-        if(count($placesLibres)===0){
-            //user->rang = count(users->where(rang>0))+1
-            $user->update([
-                'rang'=> count(User::where('rang','>',0)->get())+1,
-            ]);
-        }
-        else{
-            $place = $placesLibres->random();
 
-            $place->update(['is_free' => 0]);
+        //$placesLibres = Place::all()->reservations()->where('ended_at', null);
+        $placesLibres = Place::doesntHave('reservations')->get();
 
-            $res = Reservation::create([
-                'user_id' => Auth::user()->id,
-                'place_id' => $place->id,
-            ]);
-
-
-            $user->update(['rang'=>0]);
-        }
-
-        return redirect()->route('app.index', compact('res'));
+        return print($placesLibres);
     }
 
     /**

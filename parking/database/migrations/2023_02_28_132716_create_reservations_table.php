@@ -18,6 +18,7 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->datetime('ended_at')->default(null);
 
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Place::class);
