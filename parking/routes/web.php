@@ -27,7 +27,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
     })->name('admin');
 
     Route::resource('places', PlaceController::class, ['middleware'=>'valid']);
-
     Route::resource('users', UserController::class);
     Route::patch('users/{user}/valid', [UserController::class, 'valid'])->name('users.valid');
 
@@ -35,9 +34,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
         return view('admin.index');
     })->name('admin.list');
 });
-//Route::group(['middleware'=>'valid'], function(){
-    Route::resource('app', ReservationController::class);
-//});
+Route::resource('app', ReservationController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

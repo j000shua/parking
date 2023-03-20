@@ -18,7 +18,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return view('app.index',);
+        $reservations = Reservation::all();
+        return view('app.index', compact('reservations'));
     }
 
     /**
@@ -40,29 +41,30 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         $user = $request->user();
-        $placesLibres = Place::where('is_free',1)->get();
+        $placesLibres = Place::where('is_free', 1)->get();
+        $place = $placesLibres->random();
         
-        if(count($placesLibres)===0){
-            //user->rang = count(users->where(rang>0))+1
-            $user->update([
-                'rang'=> count(User::where('rang','>',0)->get())+1,
-            ]);
-        }
-        else{
-            $place = $placesLibres->random();
+        // if(count($placesLibres)===0){
+        //     //user->rang = count(users->where(rang>0))+1
+        //     $user->update([
+        //         'rang'=> count(User::where('rang','>',0)->get())+1,
+        //     ]);
+        // }
+        // else{
+        //     $place = $placesLibres->random();
 
-            $place->update(['is_free' => 0]);
+        //     $place->update(['is_free' => 0]);
 
-            $res = Reservation::create([
-                'user_id' => Auth::user()->id,
-                'place_id' => $place->id,
-            ]);
+        //     $res = Reservation::create([
+        //         'user_id' => Auth::user()->id,
+        //         'place_id' => $place->id,
+        //     ]);
 
 
-            $user->update(['rang'=>0]);
-        }
+        //     $user->update(['rang'=> 0]);
+        // }
 
-        return redirect()->route('app.index', compact('res'));
+        return redirect()->route('app.index')->with('data', $place);
     }
 
     /**
@@ -73,7 +75,7 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        //
+        echo('show');
     }
 
     /**
