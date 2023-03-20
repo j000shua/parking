@@ -1,70 +1,25 @@
 <x-app-layout>
-    <div class="md:container md:mx-auto">
-        <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Parking') }}
-            </h2>
-        </x-slot>
-        @if(Auth::user()->is_admin)
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Parking') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    
+                    <form method="post" action="{{ route('app.store') }}" class="mt-6 space-y-6">
+                        @csrf
+
                         <div class="flex items-center gap-4">
-                            {{ __('Historique des réservations')}}
+                            <x-primary-button>{{ __('Demander une place') }}</x-primary-button>
                         </div>
-                    </div>
-                    <table class="shadow-lg bg-white dark:bg-gray-800 border-collapse">
-                        <tr>
-                            <th class="bg-blue-100 border text-center px-auto py-auto">{{ __('Utilisateur')}}</th>
-                            <th class="bg-blue-100 border text-center px-auto py-auto">{{ __('Place occupée')}}</th>
-                            <th class="bg-blue-100 border text-center px-auto py-auto">{{ __('Date de début')}}</th>
-                            <th class="bg-blue-100 border text-center px-auto py-auto">{{ __('Date de fin')}}</th>
-                        </tr>
-                    </table>
+                    </form>
                 </div>
             </div>
         </div>
-        @elseif(Auth::user()->is_admin === 0 && Auth::user()->is_valid === 0)
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex items-center gap-4">
-                            {{ __('Veuillez attendre que un administrateur valide votre inscription')}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @elseif(session('data'))
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex items-center gap-4">
-                            {{ __('Voici votre place : ')}}
-                            session()->get('data')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @else
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <form method="post" action="{{ route('app.store') }}" class="mt-6 space-y-6">
-                            @csrf
-                            <div class="flex items-center gap-4">
-                                <x-primary-button>{{ __('Demander une place') }}</x-primary-button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
     </div>
+
 </x-app-layout>

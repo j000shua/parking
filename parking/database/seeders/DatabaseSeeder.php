@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Place;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,13 +19,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::create([
+            'name' => 'a',
+            'email' => 'a@a',
+            'password' => Hash::make('a'),
+            'is_valid' => 1,
+            'is_admin' => 1,
         ]);
 
-        Place::factory(10)->create();
+        Place::create([
+            'number' => 'A1',
+        ]);
     }
 }
